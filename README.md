@@ -7,7 +7,7 @@ The purpose of the project is to implement a web application that registers cour
 - ASP.NET [Razor Pages](https://docs.microsoft.com/en-us/aspnet/core/razor-pages/?view=aspnetcore-6.0&tabs=visual-studio) Web Application(.NET framework 6.0)
 - Default built-in [Bootstrap v5.1.0](https://getbootstrap.com/)
 - Default built-in [jQuery](https://jquery.com/) JavaScript Library v3.5.1
-- Third party class libraries packed as NuGet package - **AcademicManagement.2.0.0.nupkg**
+- Third party class libraries packed as NuGet package - AcademicManagement.2.0.0.nupkg
 
 ## Get started
 1. Download Visual Studio 2022
