@@ -1,0 +1,135 @@
+﻿@page
+@model Lab3.Pages.RegistrationModel
+@using AcademicManagement;
+@{
+    ViewData["Title"] = "Registration";
+
+    SelectList Options = new SelectList(AcademicManagement.DataAccess.GetAllStudents(), "StudentId", "StudentName");
+
+    Model.CourseSelections = new List<SelectListItem>();
+    foreach (Course c in DataAccess.GetAllCourses())
+    {
+        Model.CourseSelections.Add(new SelectListItem(c.CourseTitle, c.CourseCode, false));
+    }
+}
+
+
+<h1>Registrations</h1>
+<hr />
+<form method="post">
+    <div class="row">
+        <div class="col-md-3">
+            <select class="form-select" asp-for="SelectedStudentId" asp-items="Options" id="SelectedStudentId">
+                <option value="-1">Choose a student ...</option>
+            </select>
+        </div>
+        <div class="col">
+            <button asp-page-handler="StudentSelected" class="btn btn-primary" type="submit" id="StudentSelected" hidden>Get Registrations</button>
+        </div>
+    </div>
+
+
+    <br />
+    <p class="alert-primary">@Model.Msg</p>
+
+ 
+    @if(@Model.SelectedStudentId != "-1")
+    {
+        if(DataAccess.GetAcademicRecordsByStudentId(@Model.SelectedStudentId).Count() == 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="control-label"><a>Course Code</a></th>
+                        <th class="control-label"><a>Course Title</a></th>
+                        <th class="control-label">Check to Register</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.CourseSelections.Count(); i++)
+                    {
+                        <tr>
+                            <td>
+                                <input type="hidden" asp-for="@Model.CourseSelections[i].Value" />    
+                                @Model.CourseSelections[i].Value   <!--Value = c.CourseCode-->
+                            </td>
+                            <td>
+                                <input type="hidden" asp-for="@Model.CourseSelections[i].Text" />
+                                @Model.CourseSelections[i].Text    <!--Text = c.CourseTitle*--> 
+                            </td>
+                            <td> 
+                                <input type="checkbox" asp-for="@Model.CourseSelections[i].Selected" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <button asp-page-handler="Register" class="btn btn-primary" type="submit">Register</button>
+
+        }
+        else
+        {
+            //if(Model.AcademicRecordsOfSelectedStudent != null && Model.AcademicRecordsOfSelectedStudent.Count > 0)
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="control-label"><a>Course Code</a></th>
+                        <th class="control-label"><a>Course Title</a></th>
+                        <th class="control-label"><a>Grades</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        //List<AcademicRecord> recordList = DataAccess.GetAcademicRecordsByStudentId(@Model.SelectedStudentId);
+
+                        for(int i = 0; i < Model.AcademicRecordsOfSelectedStudent.Count(); i++)
+                        {
+                            AcademicRecord ar = Model.AcademicRecordsOfSelectedStudent[i];
+                            Course course = DataAccess.GetAllCourses().Where(c => c.CourseCode == ar.CourseCode).FirstOrDefault();     //to get c.CourseTitle. We know it'll return ONE and ONLY ONE course title actually.
+                                                                                                                                       //same as: Course c = DataAccess.GetAllCourses().First(c => c.CourseCode == ar.CourseCode);
+                            //also same as: 
+                            /*Course course;
+                            foreach (Course c in DataAccess.GetAllCourses())
+                            {
+                                if (c.CourseCode == ar.CourseCode)
+                                {
+                                    course = c;
+                                    break;
+                                }
+                            }*/
+
+                            string grade = ar.Grade == -100 ? "" : ar.Grade.ToString();                                                //if no grade entered, leave input value as blank
+
+                            <tr>
+                                <td>                                   
+                                    <input type="hidden" asp-for="@Model.AcademicRecordsOfSelectedStudent[i].CourseCode">                <!--use this hidden asp-for to send Grade's corresponding CourseCode to the code behind-->
+                                    @course.CourseCode  
+                                </td>  
+                                <td>
+                                    @course.CourseTitle
+                                </td>
+                                <td>          
+                                    <input type="number" step="any" asp-for="@Model.AcademicRecordsOfSelectedStudent[i].Grade" value="@grade">   <!-- asp-for: Binding the input control to AcademicRecordsOfSelectedStudents.Grade property. -->
+                                                                                                                                                 <!-- Binding is two way: the input field is pre-filled with Grade value in HTTP-GET, the Grade is also set to the value of input during HTTP-POST -->
+                                </td>                                  
+                            </tr>
+                        }
+                    }
+
+
+                </tbody>
+            </table>
+
+            <button asp-page-handler="SubmitGrades" class="btn btn-primary" type="submit">Submit Grades</button>
+        }
+    }
+</form>
+
+@section Scripts{
+    <script type="text/javascript">
+        document.querySelector("#SelectedStudentId").addEventListener("change", function(){
+            document.querySelector("#StudentSelected").click();
+        });
+    </script>
+}
