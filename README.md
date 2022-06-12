@@ -24,3 +24,8 @@ The purpose of the project is to implement a web application that registers cour
 3. Add JavaScript to Razor Pages
 4. Use Sessions in Razor page web application
 5. Sort list of C# objects
+
+## Acknowledgements
+A list of recourses I found helpful to learn Razor Pages:
+- [Razor Pages with Entity Framework Core in ASP.NET Core - Tutorial 1 of 8](https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-6.0&tabs=visual-studio)
+- [Razor Pages for ASP.NET Core(.NET 6) - freeCodeCamp.org](https://youtu.be/eru2emiqow0)
