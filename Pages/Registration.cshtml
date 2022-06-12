@@ -35,8 +35,7 @@
  
     @if(@Model.SelectedStudentId != "-1" && @Model.SelectedStudentId != null)
     {
-        //else if (Model.CourseSelections != null && Model.CourseSelections.Count() > 0)
-        if(DataAccess.GetAcademicRecordsByStudentId(@Model.SelectedStudentId).Count() == 0)   
+        if(Model.AcademicRecordsOfSelectedStudent != null && Model.AcademicRecordsOfSelectedStudent.Count() == 0)   
         {
             <table class="table">
                 <thead>
@@ -52,11 +51,11 @@
                         <tr>
                             <td>
                                 <input type="hidden" asp-for="@Model.CourseSelections[i].TheCourse.CourseCode" />    
-                                @Model.CourseSelections[i].TheCourse.CourseCode   <!--Value = c.CourseCode-->
+                                @Model.CourseSelections[i].TheCourse.CourseCode  
                             </td>
                             <td>
                                 <input type="hidden" asp-for="@Model.CourseSelections[i].TheCourse.CourseTitle" />
-                                @Model.CourseSelections[i].TheCourse.CourseTitle    <!--Text = c.CourseTitle*--> 
+                                @Model.CourseSelections[i].TheCourse.CourseTitle    
                             </td>
                             <td> 
                                 <input type="checkbox" asp-for="@Model.CourseSelections[i].Selected" />
@@ -70,8 +69,7 @@
 
         }
         else
-        {
-            //if(Model.AcademicRecordsOfSelectedStudent != null && Model.AcademicRecordsOfSelectedStudent.Count() > 0)
+        {           
             <table class="table">
                 <thead>
                     <tr>
@@ -82,8 +80,6 @@
                 </thead>
                 <tbody>
                     @{
-                        //List<AcademicRecord> recordList = DataAccess.GetAcademicRecordsByStudentId(@Model.SelectedStudentId);
-
                         for(int i = 0; i < Model.AcademicRecordsOfSelectedStudent.Count(); i++)
                         {
                             AcademicRecord ar = Model.AcademicRecordsOfSelectedStudent[i];
@@ -112,7 +108,7 @@
                                 </td>
                                 <td>          
                                     <input class="form-control" type="number" step="any" asp-for="@Model.AcademicRecordsOfSelectedStudent[i].Grade" value="@grade">   <!-- asp-for: Binding the input control to AcademicRecordsOfSelectedStudents.Grade property. -->
-                                                                                                                                                 <!-- Binding is two way: the input field is pre-filled with Grade value in HTTP-GET, the Grade is also set to the value of input during HTTP-POST -->
+                                                                                                                                                                      <!-- Binding is two way: the input field is pre-filled with Grade value in HTTP-GET, the Grade is also set to the value of input during HTTP-POST -->
                                 </td>                                  
                             </tr>
                         }

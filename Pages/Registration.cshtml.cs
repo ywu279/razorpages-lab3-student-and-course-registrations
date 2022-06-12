@@ -3,54 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http;
-
 using System.Collections.Generic;
 
 namespace Lab3.Pages
 {
-    #region CourseComparer
-/*    public class CourseComparer : IComparer<Course>
-    {
-        private string CompareBy { get; set; }
-
-        //constructor
-        public CourseComparer(string compareBy)
-        {
-            if (compareBy == "code" || compareBy == "title" || compareBy == "grade")
-            {
-                CompareBy = compareBy;
-            }
-            else
-            {
-                throw new Exception("Unsupported comparing criteria!");
-            }
-        }
-
-        public int Compare(Course c1, Course c2)
-        {
-            if (c1 == null && c2 == null) return 0;
-            else if (c1 == null && c2 != null) return -1;
-            else if (c1 != null && c2 == null) return 1;
-            else
-            {
-                if (CompareBy == "code")
-                {
-                    return c1.CourseCode.CompareTo(c2.CourseCode);
-                }
-                else if (CompareBy == "title")
-                {
-                    return c1.CourseTitle.CompareTo(c2.CourseTitle);
-                }
-                else throw new Exception("Unsupported comparing criteria!");
-            }
-
-        }
-    }*/
-    #endregion
-
-
-
-
     public class CourseSelection
     {
         public Course TheCourse { get; set; }
@@ -63,18 +19,14 @@ namespace Lab3.Pages
         [BindProperty]
         public string SelectedStudentId { get; set; } = "-1";
 
+        /*[BindProperty]
+        public List<SelectListItem> CourseSelections { get; set; }*/
+
         [BindProperty]
         public List<CourseSelection> CourseSelections { get; set; }
 
-/*        [BindProperty]
-        public List<SelectListItem> CourseSelections { get; set; }*/
-        
-/*        [BindProperty]
-        public double Grade { get; set; }*/
-
         [BindProperty]
         public List<AcademicRecord> AcademicRecordsOfSelectedStudent { get; set; }
-        //public List<Course> SelectedCourses { get; set; }
 
         public string Msg { get; set; } = "";
       
@@ -123,17 +75,15 @@ namespace Lab3.Pages
 
                 AcademicRecordsOfSelectedStudent = DataAccess.GetAcademicRecordsByStudentId(SelectedStudentId);
 
-                HttpContext.Session.SetString("SelectedStudentId", SelectedStudentId);
-
-                if (AcademicRecordsOfSelectedStudent.Count() == 0)
-                {
-                    Msg = "The student has not registered any course. Select course(s) to register.";
-                    BuildCourseSelections();
-                }
-                else
+                if (AcademicRecordsOfSelectedStudent.Count() > 0)
                 {
                     Msg = "The student has registered for the following courses.";
                     SortAcademicRecordsOfSelectedStudent();
+                }
+                else
+                {
+                    Msg = "The student has not registered any course. Select course(s) to register.";
+                    BuildCourseSelections();
                 }
 
             }
@@ -142,14 +92,10 @@ namespace Lab3.Pages
         
         public void OnPostRegister()
         {
-            //List<Course> SelectedCourses = new List<Course>();
-            
             foreach (CourseSelection c in CourseSelections)
             {
                 if (c.Selected)
                 {
-                    //SelectedCourses.Add(DataAccess.GetAllCourses().First(c => c.CourseCode == item.Value));
-
                     AcademicRecord academicRecord = new AcademicRecord(SelectedStudentId, c.TheCourse.CourseCode);
 
                     DataAccess.AddAcademicRecord(academicRecord);
@@ -158,17 +104,17 @@ namespace Lab3.Pages
                 }
             }
 
-            if(CourseSelections.Count() == 0)
+            if(AcademicRecordsOfSelectedStudent.Count() > 0)
+            {
+                Msg = "The student has registered for the following courses. You can enter or edit the grades";
+
+                SortAcademicRecordsOfSelectedStudent();
+            }
+            else
             {
                 Msg = "You must select at least one course!";
 
                 BuildCourseSelections();
-            }
-            else
-            {
-                SortAcademicRecordsOfSelectedStudent();
-
-                Msg = "The student has registered for the following courses. You can enter or edit the grades";
             }
 
             
@@ -177,16 +123,6 @@ namespace Lab3.Pages
         public void OnPostSubmitGrades()
         {
             //to match the selected CourseCode to GetAcademicRecordsByStudentId().CourseCode, then apply the Grade that way:
-
-            /*List<AcademicRecord> a = DataAccess.GetAcademicRecordsByStudentId(SelectedStudentId);
-            for (int i = 0; i < AcademicRecordsOfSelectedStudent.Count(); i++)
-            {
-                if (AcademicRecordsOfSelectedStudent[i].CourseCode == a[i].CourseCode)  
-                {
-                    a[i].Grade = AcademicRecordsOfSelectedStudent[i].Grade;
-                }
-               
-            }*/
 
             foreach(AcademicRecord ar in AcademicRecordsOfSelectedStudent)
             {
@@ -201,7 +137,6 @@ namespace Lab3.Pages
             }
         }
 
-
         private void BuildCourseSelections()
         {
             CourseSelections = new List<CourseSelection>();
@@ -209,6 +144,7 @@ namespace Lab3.Pages
             {
                 CourseSelections.Add(new CourseSelection() { TheCourse = c, Selected = false });
             }
+
 
             string orderby = HttpContext.Session.GetString("orderby");
             if (orderby == "code")
@@ -251,4 +187,46 @@ namespace Lab3.Pages
         }
 
     }
+
+
+
+    #region CourseComparer
+    /*public class CourseComparer : IComparer<CourseSelection>
+    {
+        private string CompareBy { get; set; }
+
+        //constructor
+        public CourseComparer(string compareBy)
+        {
+            if (compareBy == "code" || compareBy == "title" || compareBy == "grade")
+            {
+                CompareBy = compareBy;
+            }
+            else
+            {
+                throw new Exception("Unsupported comparing criteria!");
+            }
+        }
+
+        public int Compare(CourseSelection c1, CourseSelection c2)
+        {
+            if (c1 == null && c2 == null) return 0;
+            else if (c1 == null && c2 != null) return -1;
+            else if (c1 != null && c2 == null) return 1;
+            else
+            {
+                if (CompareBy == "code")
+                {
+                    return c1.TheCourse.CourseCode.CompareTo(c2.TheCourse.CourseCode);
+                }
+                else if (CompareBy == "title")
+                {
+                    return c1.TheCourse.CourseTitle.CompareTo(c2.TheCourse.CourseTitle);
+                }
+                else throw new Exception("Unsupported comparing criteria!");
+            }
+
+        }
+    }*/
+    #endregion
 }
