@@ -6,11 +6,11 @@
 
     SelectList Options = new SelectList(AcademicManagement.DataAccess.GetAllStudents(), "StudentId", "StudentName");
 
-    Model.CourseSelections = new List<SelectListItem>();
-    foreach (Course c in DataAccess.GetAllCourses())
-    {
-        Model.CourseSelections.Add(new SelectListItem(c.CourseTitle, c.CourseCode, false));
-    }
+    //Model.CourseSelections = new List<SelectListItem>();
+    //foreach (Course c in DataAccess.GetAllCourses())
+    //{
+    //    Model.CourseSelections.Add(new SelectListItem(c.CourseTitle, c.CourseCode, false));
+    //}
 }
 
 
@@ -33,15 +33,16 @@
     <p class="alert-primary">@Model.Msg</p>
 
  
-    @if(@Model.SelectedStudentId != "-1")
+    @if(@Model.SelectedStudentId != "-1" && @Model.SelectedStudentId != null)
     {
-        if(DataAccess.GetAcademicRecordsByStudentId(@Model.SelectedStudentId).Count() == 0)
+        //else if (Model.CourseSelections != null && Model.CourseSelections.Count() > 0)
+        if(DataAccess.GetAcademicRecordsByStudentId(@Model.SelectedStudentId).Count() == 0)   
         {
             <table class="table">
                 <thead>
                     <tr>
-                        <th class="control-label"><a>Course Code</a></th>
-                        <th class="control-label"><a>Course Title</a></th>
+                        <th class="control-label"><a class="link-primary" asp-route-orderby="code">Course Code</a></th>
+                        <th class="control-label"><a class="link-primary" asp-route-orderby="title">Course Title</a></th>
                         <th class="control-label">Check to Register</th>
                     </tr>
                 </thead>
@@ -50,12 +51,12 @@
                     {
                         <tr>
                             <td>
-                                <input type="hidden" asp-for="@Model.CourseSelections[i].Value" />    
-                                @Model.CourseSelections[i].Value   <!--Value = c.CourseCode-->
+                                <input type="hidden" asp-for="@Model.CourseSelections[i].TheCourse.CourseCode" />    
+                                @Model.CourseSelections[i].TheCourse.CourseCode   <!--Value = c.CourseCode-->
                             </td>
                             <td>
-                                <input type="hidden" asp-for="@Model.CourseSelections[i].Text" />
-                                @Model.CourseSelections[i].Text    <!--Text = c.CourseTitle*--> 
+                                <input type="hidden" asp-for="@Model.CourseSelections[i].TheCourse.CourseTitle" />
+                                @Model.CourseSelections[i].TheCourse.CourseTitle    <!--Text = c.CourseTitle*--> 
                             </td>
                             <td> 
                                 <input type="checkbox" asp-for="@Model.CourseSelections[i].Selected" />
@@ -70,13 +71,13 @@
         }
         else
         {
-            //if(Model.AcademicRecordsOfSelectedStudent != null && Model.AcademicRecordsOfSelectedStudent.Count > 0)
+            //if(Model.AcademicRecordsOfSelectedStudent != null && Model.AcademicRecordsOfSelectedStudent.Count() > 0)
             <table class="table">
                 <thead>
                     <tr>
-                        <th class="control-label"><a>Course Code</a></th>
-                        <th class="control-label"><a>Course Title</a></th>
-                        <th class="control-label"><a>Grades</a></th>
+                        <th class="control-label"><a class="link-primary" asp-route-orderby="code">Course Code</a></th>
+                        <th class="control-label"><a class="link-primary" asp-route-orderby="title">Course Title</a></th>
+                        <th class="control-label"><a class="link-primary" asp-route-orderby="grade">Grades</a></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,7 +111,7 @@
                                     @course.CourseTitle
                                 </td>
                                 <td>          
-                                    <input type="number" step="any" asp-for="@Model.AcademicRecordsOfSelectedStudent[i].Grade" value="@grade">   <!-- asp-for: Binding the input control to AcademicRecordsOfSelectedStudents.Grade property. -->
+                                    <input class="form-control" type="number" step="any" asp-for="@Model.AcademicRecordsOfSelectedStudent[i].Grade" value="@grade">   <!-- asp-for: Binding the input control to AcademicRecordsOfSelectedStudents.Grade property. -->
                                                                                                                                                  <!-- Binding is two way: the input field is pre-filled with Grade value in HTTP-GET, the Grade is also set to the value of input during HTTP-POST -->
                                 </td>                                  
                             </tr>
