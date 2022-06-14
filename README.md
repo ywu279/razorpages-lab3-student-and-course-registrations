@@ -37,7 +37,8 @@ The purpose of the project is to implement a web application that registers cour
 <img src="https://user-images.githubusercontent.com/58931129/173492692-c28d6bb1-af4f-48b4-a1e6-6f97b39cdf69.png" width=70%>
     
 ### 4. Sort Courses and Academic Records
-    When a user selects a different student from the dropdown list, the page must maintain the previous selected sort order
+When a user selects a different student from the dropdown list, the page must maintain the previous selected sort order
+
 <img src="https://user-images.githubusercontent.com/58931129/173493208-04d7410d-f98b-4476-ad86-f39197fe970c.png" width=70%>
 <img src="https://user-images.githubusercontent.com/58931129/173493251-9cee518f-41b5-4b8c-aa32-cd862daaec4c.png" width=70%>
 
