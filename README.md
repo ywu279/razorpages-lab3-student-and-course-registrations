@@ -25,7 +25,22 @@ The purpose of the project is to implement a web application that registers cour
 4. Use Sessions in Razor page web application
 5. Sort list of C# objects
 
+## Features
+### 1. Select a student from dropdownlist
+    ![image](https://user-images.githubusercontent.com/58931129/173492468-340181e0-6a8f-4948-aa96-f6bc49fcb0f6.png)
+### 2. Register courses
+    ![image](https://user-images.githubusercontent.com/58931129/173492592-c2ee50e7-e6d7-4698-bca0-035b4d70a1a4.png)
+### 3. Enter Grades
+    ![image](https://user-images.githubusercontent.com/58931129/173492692-c28d6bb1-af4f-48b4-a1e6-6f97b39cdf69.png)
+### 4. Sort Courses and Academic Records
+    When a user selects a different student from the dropdown list, the page must maintain the previous selected sort order
+    ![image](https://user-images.githubusercontent.com/58931129/173493208-04d7410d-f98b-4476-ad86-f39197fe970c.png)
+    ![image](https://user-images.githubusercontent.com/58931129/173493251-9cee518f-41b5-4b8c-aa32-cd862daaec4c.png)
+
 ## Acknowledgements
 A list of recourses I found helpful to learn Razor Pages:
 - [Razor Pages with Entity Framework Core in ASP.NET Core - Tutorial 1 of 8](https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-6.0&tabs=visual-studio)
 - [Razor Pages for ASP.NET Core(.NET 6) - freeCodeCamp.org](https://youtu.be/eru2emiqow0)
+
+## Disclaimer
+This project is to be used for educational purposes only.
