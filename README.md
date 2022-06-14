@@ -14,9 +14,9 @@ The purpose of the project is to implement a web application that registers cour
 2. You have to install the **AcademicManagement.2.0.0.nupkg** package to the Lab3 project. You'll find it under the **LocalClassLib** folder.
 
     From Visual Studio's menu, select **Tools > NuGet Package Manager > Manage NuGet Packages for Solution...**
-    ![image](https://user-images.githubusercontent.com/58931129/173199329-189e8635-4c41-4d89-a968-40be14fd3c5c.png)
+    <img src="https://user-images.githubusercontent.com/58931129/173199329-189e8635-4c41-4d89-a968-40be14fd3c5c.png" width=70%>
     After installation, you should be able to see it under the project's **Dependencies > Packages > AcademicManagement (2.0.0)**
-    ![image](https://user-images.githubusercontent.com/58931129/173199530-3c822a63-d318-4d61-b728-3d52bf9ba53b.png)
+    <img src="https://user-images.githubusercontent.com/58931129/173199530-3c822a63-d318-4d61-b728-3d52bf9ba53b.png" width=70%>
 
 ## Objectives
 1. Add third party class libraries
@@ -27,18 +27,18 @@ The purpose of the project is to implement a web application that registers cour
 
 ## Features
 ### 1. Select a student from dropdownlist
-    ![image](https://user-images.githubusercontent.com/58931129/173492468-340181e0-6a8f-4948-aa96-f6bc49fcb0f6.png)
+<img src="https://user-images.githubusercontent.com/58931129/173492468-340181e0-6a8f-4948-aa96-f6bc49fcb0f6.png" width=70%>
     
 ### 2. Register courses
-    ![image](https://user-images.githubusercontent.com/58931129/173492592-c2ee50e7-e6d7-4698-bca0-035b4d70a1a4.png)
-    
+<img src="https://user-images.githubusercontent.com/58931129/173492592-c2ee50e7-e6d7-4698-bca0-035b4d70a1a4.png" width=70%>
+ 
 ### 3. Enter Grades
-    ![image](https://user-images.githubusercontent.com/58931129/173492692-c28d6bb1-af4f-48b4-a1e6-6f97b39cdf69.png)
+<img src="https://user-images.githubusercontent.com/58931129/173492692-c28d6bb1-af4f-48b4-a1e6-6f97b39cdf69.png" width=70%>
     
 ### 4. Sort Courses and Academic Records
     When a user selects a different student from the dropdown list, the page must maintain the previous selected sort order
-    ![image](https://user-images.githubusercontent.com/58931129/173493208-04d7410d-f98b-4476-ad86-f39197fe970c.png)
-    ![image](https://user-images.githubusercontent.com/58931129/173493251-9cee518f-41b5-4b8c-aa32-cd862daaec4c.png)
+    <img src="https://user-images.githubusercontent.com/58931129/173493208-04d7410d-f98b-4476-ad86-f39197fe970c.png" width=70%>
+    <img src="https://user-images.githubusercontent.com/58931129/173493251-9cee518f-41b5-4b8c-aa32-cd862daaec4c.png" width=70%>
 
 ## Acknowledgements
 A list of recourses I found helpful to learn Razor Pages:
