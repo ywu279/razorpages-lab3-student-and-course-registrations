@@ -33,7 +33,7 @@
     <p class="alert-primary">@Model.Msg</p>
 
  
-    @if(@Model.SelectedStudentId != "-1" && @Model.SelectedStudentId != null)
+    @if(Model.SelectedStudentId != "-1" && Model.SelectedStudentId != null)
     {
         if(Model.AcademicRecordsOfSelectedStudent != null && Model.AcademicRecordsOfSelectedStudent.Count() == 0)   
         {
